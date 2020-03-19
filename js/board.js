@@ -17,7 +17,7 @@ function chnageDiff(diff) {
                 break;
             }
         case 'Hard':
-            {   
+            {
                 gLevel.Difficulty = 3;
                 gLevel.size = 12;
                 gLevel.mines = 30;
@@ -26,8 +26,23 @@ function chnageDiff(diff) {
                 resetGame();
                 break;
             }
+        case 'Manualy':
+            {
+                gLevel.Difficulty = 4;
+                gLevel.size = 5;
+                gLevel.mines = 10;
+                if (gLevel.size > 9) {
+                    gWarper.classList.add('warper-big');
+                    gWarper.classList.remove('warper');
+                } else {
+                    gWarper.classList.add('warper');
+                    gWarper.classList.remove('warper-big');
+                }
+                resetGame();
+                break;
+            }
         default:
-            {   
+            {
                 gLevel.Difficulty = 1;
                 gLevel.size = 4;
                 gLevel.mines = 2;
@@ -57,12 +72,13 @@ function buildBoard() {
 
 
 //-----------------------------Render
-function renderBoard(board) {
+function renderBoard(board, pos) {
     var strHTML = ''
     for (var i = 0; i < board.length; i++) {
         strHTML += '<tr>'
         for (var j = 0; j < board[0].length; j++) {
             var className = 'occupied';
+            var firstclass = (i == pos.i && j == pos.j) ? 'hideElem' : '';
             className += (board[i][j].minesAroundCount === 1) ? ' one' :
                 (board[i][j].minesAroundCount === 2) ? ' two' :
                     (board[i][j].minesAroundCount === 3) ? ' three' :
@@ -70,7 +86,7 @@ function renderBoard(board) {
             var strData = `data-i="${i}" data-j="${j}"`;
             var strDataCard = `data-ii="${i}" data-jj="${j}"`;
             strHTML += '<td>'
-            strHTML += `<div class="upper-card" ${strDataCard} onmousedown="cellClicked(this, ${i}, ${j},event)"></div>`
+            strHTML += `<div class="upper-card ${firstclass}" ${strDataCard} onmousedown="cellClicked(this, ${i}, ${j},event)"></div>`
             strHTML += `<div class="${className} hideElem" ${strData}>`;
             strHTML += `${board[i][j].minesAroundCount} </div>`;
             strHTML += '</td>';

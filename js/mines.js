@@ -6,9 +6,12 @@ function createMines(board, pos) {
         var boardCells = getEmptyCells(board, pos);
         var rndNum = getRandomInteger(0, boardCells.length - 1);
         var placeForMine = boardCells.splice(rndNum, 1);
+        if(board[placeForMine[0].i][placeForMine[0].j].isMine) {
+            x--;
+            continue;
+        }
         board[placeForMine[0].i][placeForMine[0].j].isMine = true;
-        board[placeForMine[0].i][placeForMine[0].j].minesAroundCount = MINE;
-        var cellPos = { i: placeForMine[0].i, j: placeForMine[0].j };
+        board[placeForMine[0].i][placeForMine[0].j].minesAroundCount = MINE;   
     }
     createNigh(board);
 }
