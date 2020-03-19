@@ -1,2 +1,6 @@
 # CodingAcedemy-1st
-first sprint
+first sprint of Coding Acedemy - mine sweeper
+in:
+  javaScript
+  HTML
+  CSS
